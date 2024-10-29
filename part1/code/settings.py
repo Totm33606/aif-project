@@ -1,18 +1,20 @@
 from pathlib import Path
 import torch
 from torchvision import transforms
+from torchvision.transforms import InterpolationMode
 
 DATA_PATH = Path("data/content/sorted_movie_posters_paligema")
 PCT_IN_TRAIN = 0.7
 PCT_IN_VAL = 0.15
 BATCH_SIZE = 32
-EPOCHS = 1
-LR = 1e-3
+EPOCHS = 10
+LR = 1e-4
 NUM_WORKERS = 10
 TRANSFORM = transforms.Compose([
-    transforms.Resize((224, 224)),
+    transforms.Resize(256, interpolation=InterpolationMode.BILINEAR),  
+    transforms.CenterCrop((224, 224)),  
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.5,], std=[0.5,])
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Values used for the pre-trained ResNet19
 ])
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_CLASSES = 10

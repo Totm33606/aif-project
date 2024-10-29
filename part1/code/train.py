@@ -8,7 +8,7 @@ from tqdm import tqdm
 from settings import EPOCHS, DEVICE, NUM_CLASSES, LR, WEIGHTS_PATH
 from data_utils import get_loaders
 
-model = models.resnet18(pretrained=True)
+model = models.resnet18(weights='IMAGENET1K_V1')
 model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
 model = model.to(DEVICE)
 

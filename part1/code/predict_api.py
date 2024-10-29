@@ -9,7 +9,7 @@ from settings import DEVICE, WEIGHTS_PATH, TRANSFORM, IDX_TO_CLASS, NUM_CLASSES
 app = Flask(__name__)
 
 # Load the model
-model = models.resnet18(pretrained=False)
+model = models.resnet18(weights=None)
 model.fc = torch.nn.Linear(model.fc.in_features, NUM_CLASSES)  
 model.load_state_dict(torch.load(WEIGHTS_PATH, map_location=DEVICE))
 model.to(DEVICE)
