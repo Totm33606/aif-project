@@ -11,4 +11,4 @@ COPY MovieGenre.zip /app
 RUN apt-get update && apt-get install -y unzip && unzip MovieGenre.zip -d data && rm MovieGenre.zip
 
 # Launch training
-CMD ["python", "code/train.py"]
+# CMD ["python", "code/train.py"]
