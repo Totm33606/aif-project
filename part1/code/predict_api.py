@@ -1,16 +1,20 @@
 import torch
+import torch.nn as nn
 from torchvision import models
 from flask import Flask, request
 from PIL import Image
 import io
 
-from settings import DEVICE, WEIGHTS_PATH, TRANSFORM, IDX_TO_CLASS, NUM_CLASSES
+from settings import DEVICE, WEIGHTS_PATH, TRANSFORM, IDX_TO_CLASS, NUM_CLASSES, DROPOUT_RATE
 
 app = Flask(__name__)
 
 # Load the model
 model = models.resnet18(weights=None)
-model.fc = torch.nn.Linear(model.fc.in_features, NUM_CLASSES)  
+model.fc = nn.Sequential(
+    nn.Dropout(p=DROPOUT_RATE),                  
+    nn.Linear(model.fc.in_features, NUM_CLASSES)
+)
 model.load_state_dict(torch.load(WEIGHTS_PATH, map_location=DEVICE))
 model.to(DEVICE)
 model.eval()
