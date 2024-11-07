@@ -7,9 +7,10 @@ DATA_PATH = Path("data/content/sorted_movie_posters_paligema")
 PCT_IN_TRAIN = 0.7
 PCT_IN_VAL = 0.15
 BATCH_SIZE = 32
-EPOCHS = 20
+EPOCHS = 10
 BASE_LR = 1e-4
 FC_LR = 1e-3
+DROPOUT_RATE = 0.5
 NUM_WORKERS = 10
 
 # Transform used to train ResNet18 on IMAGENET1K_V1

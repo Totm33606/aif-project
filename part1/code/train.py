@@ -5,11 +5,14 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from settings import EPOCHS, DEVICE, NUM_CLASSES, FC_LR, BASE_LR, WEIGHTS_PATH
+from settings import EPOCHS, DEVICE, NUM_CLASSES, FC_LR, BASE_LR, WEIGHTS_PATH, DROPOUT_RATE
 from data_utils import get_loaders
 
 model = models.resnet18(weights='IMAGENET1K_V1')
-model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
+model.fc = nn.Sequential(
+    nn.Dropout(p=DROPOUT_RATE),                  
+    nn.Linear(model.fc.in_features, NUM_CLASSES)
+)
 model = model.to(DEVICE)
 
 loaders = get_loaders()
@@ -21,9 +24,6 @@ optimizer = optim.Adam([
 ])
 
 def train(model: nn.Module, train_loader: DataLoader, val_loader: DataLoader, criterion: nn.Module, optimizer: optim.Optimizer, epochs: int = 5):
-    print("Training begins!")
-    print("=" * 50)
-
     for epoch in range(epochs):
         # Training
         model.train()
