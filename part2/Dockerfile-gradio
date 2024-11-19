@@ -1,0 +1,23 @@
+# Use an official PyTorch image as the parent image
+FROM pytorch/pytorch
+
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Install system dependencies required for building Python packages and running Gradio
+RUN apt-get update && \
+    apt-get install -y build-essential python3-dev cmake unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install Python dependencies from requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Make port 7860 available to the world outside this container
+EXPOSE 7860
+
+# Run the Gradio app when the container launches
+CMD ["python", "code/make_rec_webapp.py"]

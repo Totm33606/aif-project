@@ -1,0 +1,5 @@
+
+Flask==3.0.3
+gradio==4.44.1
+pandas==2.2.3
+annoy==1.17.3
