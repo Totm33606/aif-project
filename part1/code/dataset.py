@@ -26,7 +26,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 from torchvision.transforms import RandomHorizontalFlip, RandomRotation, ColorJitter, RandomResizedCrop
 
-def get_loader(path=DATA_DIR,numworkers=NUM_WORKERS,batchsize=BATCH_SIZE)
+def get_loader(path=DATA_DIR,numworkers=NUM_WORKERS,batchsize=BATCH_SIZE):
 
     # Transformation pour le train dataset avec des augmentations
     train_transform = transforms.Compose([
