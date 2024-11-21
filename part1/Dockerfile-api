@@ -11,6 +11,9 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
+# Download weights using gdown
+RUN gdown --id 1qZOywi8zHkkOPswdIZZu7IP97LFlv16E -O /app/code/resnet18_weights.pt
+
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
