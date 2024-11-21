@@ -1,0 +1,54 @@
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+import torch
+
+# Initialisation de l'authentification Google Drive
+def init_drive():
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()  # Ouvre une page web pour l'authentification
+    return GoogleDrive(gauth)
+
+# Sauvegarder un fichier sur Google Drive
+def save_to_drive(local_path, drive, folder_id=None):
+    file_name = local_path.split("/")[-1]  # Nom du fichier
+    file = drive.CreateFile({'title': file_name, 'parents': [{"id": folder_id}] if folder_id else []})
+    file.SetContentFile(local_path)
+    file.Upload()
+    print(f"Fichier '{file_name}' sauvegardé sur Google Drive (ID: {file['id']}).")
+
+# Télécharger un fichier depuis Google Drive
+def load_from_drive(local_path, drive, file_id):
+    file = drive.CreateFile({'id': file_id})
+    file.GetContentFile(local_path)
+    print(f"Fichier téléchargé depuis Google Drive et sauvegardé localement sous : {local_path}.")
+
+# Sauvegarder un modèle PyTorch
+def save_model(model, local_path, drive=None, folder_id=None):
+    torch.save(model.state_dict(), local_path)
+    print(f"Modèle sauvegardé localement à : {local_path}")
+    if drive:
+        save_to_drive(local_path, drive, folder_id)
+
+# Charger un modèle PyTorch
+def load_model(model, local_path, drive=None, file_id=None):
+    if drive and file_id:  # Télécharger depuis Google Drive si nécessaire
+        load_from_drive(local_path, drive, file_id)
+    model.load_state_dict(torch.load(local_path))
+    print(f"Modèle chargé depuis : {local_path}")
+    return model
+
+# Exemple d'utilisation
+if __name__ == "__main__":
+    # Initialisation du Drive personnel
+    drive = init_drive()
+
+    # Chemin local et configurations Google Drive
+    local_path = "movie_genre_model.pth"
+    folder_id = "VOTRE_FOLDER_ID"  # Remplacez par l'ID de votre dossier Drive (optionnel)
+    file_id = "VOTRE_FILE_ID"  # Remplacez par l'ID du fichier Drive (optionnel pour le chargement)
+
+    # Exemple de sauvegarde
+    save_model(model, local_path, drive, folder_id)
+
+    # Exemple de chargement
+    model = load_model(model, local_path, drive, file_id)
