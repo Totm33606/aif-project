@@ -23,7 +23,7 @@ optimizer = optim.Adam([
     {'params': base_params, 'lr': BASE_LR}  # LR for others (pretrained) layers
 ])
 
-def train(model: nn.Module, train_loader: DataLoader, val_loader: DataLoader, criterion: nn.Module, optimizer: optim.Optimizer, epochs: int = 5):
+def train(model: nn.Module, train_loader: DataLoader, val_loader: DataLoader, criterion: nn.Module, optimizer: optim.Optimizer, epochs: int = EPOCHS):
     for epoch in range(epochs):
         # Training
         model.train()
@@ -79,5 +79,6 @@ def train(model: nn.Module, train_loader: DataLoader, val_loader: DataLoader, cr
         # Train accuracy could be used to check if the network learns something
         print(f"Epoch {epoch+1}/{epochs}, Train Loss: {train_loss:.4f}, Train Accuracy: {train_accuracy:.4f}, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.4f}")
 
-train(model, loaders["train"], loaders["val"], criterion, optimizer, EPOCHS)
-torch.save(model.state_dict(), WEIGHTS_PATH)
+if __name__ == "__main__":
+    train(model, loaders["train"], loaders["val"], criterion, optimizer)
+    torch.save(model.state_dict(), WEIGHTS_PATH)

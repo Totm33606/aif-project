@@ -4,8 +4,11 @@ FROM pytorch/pytorch
 # Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY MovieGenre.zip /app
+# Download gdown
+RUN pip install gdown==5.2.0
+
+# Download datas using gdown
+RUN gdown --id 1TYyn6x6z-NxCFHjBm__8d0liNJM0i_g7 -O /app/MovieGenre.zip
 
 # Install UNZIP
 RUN apt-get update && apt-get install -y unzip && unzip MovieGenre.zip -d data && rm MovieGenre.zip
