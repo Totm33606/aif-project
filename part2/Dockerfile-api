@@ -16,8 +16,13 @@ COPY . /app
 RUN pip install --upgrade pip
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
+# Load the files from google drive
+RUN gdown --id 1iIJVZmgFEkY_impLrqoUiCSdLXAtz8Sl -O /app/rec_imdb.ann
+RUN gdown --id 1daFF6vmUfS8A7-y8Me1rTDW0BvYugGho -O /app/df_features_paths.csv
+RUN gdown --id 1enhDYIsUmkZYurcitHWQN7FGvUjltPGv -O /app/movies-posters.zip
+
 # For the dataset - to be able to plot movies' posters
-RUN unzip movielens-20m-posters-for-machine-learning.zip && rm movielens-20m-posters-for-machine-learning.zip
+RUN unzip movies-posters.zip && rm movies-posters.zip
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
