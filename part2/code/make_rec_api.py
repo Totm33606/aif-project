@@ -6,6 +6,7 @@ from PIL import Image
 import io
 import pandas as pd
 from annoy import AnnoyIndex
+import zipfile
 
 from settings import DEVICE, TRANSFORM, NB_REC
 
@@ -46,14 +47,16 @@ def predict_close_movies():
         query_vector = model(img_tensor) # Perform forward pass
         indices = annoy_index.get_nns_by_vector(query_vector.squeeze(0).cpu().numpy(), NB_REC)
         paths = df.iloc[indices]["path"]
-        image_path = paths.iloc[0]  # Use only the better one
-        img_to_send = Image.open(image_path)
-        img_io = io.BytesIO()
-        img_to_send.save(img_io, 'JPEG')  
-        img_io.seek(0)
-
-    return send_file(img_io, mimetype='image/jpeg')
-        
+        file_io = io.BytesIO()
+        with zipfile.ZipFile(file_io, 'w') as zipf:
+            for idx in range(NB_REC):
+                image_path = paths.iloc[idx]
+                img_to_send = Image.open(image_path)
+                img_byte_arr = io.BytesIO()
+                img_to_send.save(img_byte_arr, format='JPEG')
+                zipf.writestr(f'image_{idx + 1}.jpg', img_byte_arr.getvalue())
+        file_io.seek(0)
+        return send_file(file_io, mimetype='application/zip')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
