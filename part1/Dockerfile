@@ -4,6 +4,9 @@ FROM pytorch/pytorch
 # Set the working directory in the container to /app
 WORKDIR /app
 
+# Copy the code inside the container 
+COPY . /app
+
 # Download gdown
 RUN pip install gdown==5.2.0
 

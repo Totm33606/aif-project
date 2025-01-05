@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile-api
     container_name: flask-api-container
     ports:
-      - "5000:5000"  # Expose port 5000
+      - "5000:5000"  
     restart: unless-stopped
 
   gradio-app-service:
@@ -15,9 +15,9 @@ services:
       dockerfile: Dockerfile-gradio
     container_name: gradio-app-container
     depends_on:
-      - flask-api-service  # Gradio depends on the API
+      - flask-api-service   # Depends on the API
     ports:
-      - "7860:7860"  # Expose port 7860
+      - "7860:7860"
     restart: unless-stopped
 
   
