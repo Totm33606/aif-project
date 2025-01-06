@@ -16,6 +16,13 @@ Before running each part of the project, make sure you have the following:
    ```bash
    docker pull pytorch/pytorch
    ```
+3. **Repository**
+   Clone the public repository:
+   ```bash
+   git clone https://github.com/Totm33606/aif-project.git
+   ```
+4. **Data Access**
+   All required resources are available on a shared [drive](https://drive.google.com/drive/folders/1HrFbPdxa9TVoOg50FgzJM-CJPmYtn7bK?usp=drive_link).
 
 ---
 
