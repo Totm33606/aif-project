@@ -13,6 +13,7 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
 # Download weights using gdown
 RUN gdown --id 1qZOywi8zHkkOPswdIZZu7IP97LFlv16E -O /app/code/resnet18_weights.pt
+RUN gdown --id 1yoJ5qZKaYAa-pX4cMmS9liYwD4_sOeOa -O /app/code/anomaly_model.pkl
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000

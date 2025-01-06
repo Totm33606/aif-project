@@ -1,4 +1,4 @@
-
 Flask==3.0.3
 gradio==4.44.1
 gdown==5.2.0
+scikit-learn==1.6.0 

@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y build-essential
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --upgrade pip
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install --trusted-host pypi.python.org -r base_requirements.txt
 
 # Download datas using gdown
 RUN gdown --id 1xCm2RqqkuvIN5v3VIvRJ07u74agWXgaa -O /app/movies_metadata.csv
