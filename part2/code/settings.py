@@ -14,5 +14,5 @@ TRANSFORM = transforms.Compose(
 )
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NB_REC = 5
-DF_FT_PATH = Path("df_features_paths.csv")
-ANNOY_PATH = Path("rec_imdb.ann")
+DF_FT_PATH = "df_features_paths.csv"
+ANNOY_PATH = "rec_imdb.ann"
