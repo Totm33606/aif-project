@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 from annoy import AnnoyIndex
-from utils import get_embeddings, bert_emb_dim
+from data_utils import get_embeddings, bert_emb_dim
 from settings import DF_FILTERED_PATH, ANNOY_PATH, NB_REC
 
 app = Flask(__name__)

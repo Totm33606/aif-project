@@ -1,3 +1,4 @@
+from pathlib import Path
 import torch
 import torchvision.transforms as transforms
 
@@ -13,3 +14,5 @@ TRANSFORM = transforms.Compose(
 )
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NB_REC = 5
+DF_FT_PATH = Path("df_features_paths.csv")
+ANNOY_PATH = Path("rec_imdb.ann")

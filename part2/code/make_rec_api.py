@@ -8,17 +8,17 @@ import pandas as pd
 from annoy import AnnoyIndex
 import zipfile
 
-from settings import DEVICE, TRANSFORM, NB_REC
+from settings import DEVICE, TRANSFORM, NB_REC, DF_FT_PATH, ANNOY_PATH
 
 app = Flask(__name__)
 
 # Load the dataframe with index - features
-df = pd.read_csv("df_features_paths.csv")
+df = pd.read_csv(DF_FT_PATH)
 
 # Load the annoy database
 dim = 576
 annoy_index = AnnoyIndex(dim, "angular")
-annoy_index.load("rec_imdb.ann")
+annoy_index.load(ANNOY_PATH)
 
 # Load the model
 mobilenet = models.mobilenet_v3_small(weights="IMAGENET1K_V1")
