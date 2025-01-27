@@ -1,4 +1,4 @@
-## How to Use (same as in part2)
+## How to Use (same as in part1)
 
 1. Navigate to the `part2` folder:
 
