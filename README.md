@@ -31,3 +31,12 @@ Before running each part of the project, make sure you have the following:
 Each part of the project includes its own dedicated README file. These contain essential commands and instructions to guide you through setup and usage.
 
 👉 Make sure to read the respective README files carefully to avoid any issues!
+
+---
+
+## 👥 Authors
+
+- Thomas Chambon
+- Maimouna Gadji
+- Adam Medbouhi
+- Damien Cornuejouls
